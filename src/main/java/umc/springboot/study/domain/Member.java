@@ -5,6 +5,11 @@ import lombok.*;
 import umc.springboot.study.domain.common.BaseEntity;
 import umc.springboot.study.domain.enums.Gender;
 import umc.springboot.study.domain.enums.MemberStatus;
+import umc.springboot.study.domain.mapping.MemberFood;
+import umc.springboot.study.domain.mapping.MemberMission;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,4 +40,12 @@ public class Member extends BaseEntity {
 
     private int point;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberFood> memberFoodList = new ArrayList<>();
 }
