@@ -2,6 +2,7 @@ package umc.springboot.study.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import umc.springboot.study.domain.common.BaseEntity;
 
 @Entity
 @Getter
@@ -9,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
 
-public class Region {
+public class Region extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
