@@ -20,11 +20,13 @@ public class Mission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     private Integer reward;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'CHALLENGING' ")
     private MissionStatus status;
 
     @OneToOne(fetch=FetchType.LAZY)
