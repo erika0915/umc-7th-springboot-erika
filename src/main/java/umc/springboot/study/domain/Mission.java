@@ -23,4 +23,7 @@ public class Mission extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MissionStatus status;
 
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="store_id")
+    private Store store;
 }
