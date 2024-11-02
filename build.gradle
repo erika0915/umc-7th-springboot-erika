@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'umc'
@@ -24,14 +25,59 @@ repositories {
 }
 
 dependencies {
+	// spring boot data jpa starter
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// hibernate core
+	implementation 'org.hibernate.orm:hibernate-core:6.0.2.Final'
+
+	// spring boot web starter
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// lombok
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// mysql connector
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// spring boot test starter
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// querydsl annotation processor
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// querydsl jpa
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// querydsl 설정
+// querydsl에서 생성된 소스 파일을 저장할 디렉토리
+def generated = 'src/main/generated'
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = generated
+}
+
+// 생성된 querydsl 소스 파일이 포함된 디렉토리를 main 소스 세트에 추가함
+sourceSets {
+	main.java.srcDir generated
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
 }
