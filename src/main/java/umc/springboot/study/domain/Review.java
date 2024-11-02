@@ -22,9 +22,10 @@ public class Review extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable=true)
     private String image;
 
-    private Float score ;
+    private Float score;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
 }

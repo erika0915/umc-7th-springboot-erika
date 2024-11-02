@@ -5,7 +5,6 @@ import lombok.*;
 import umc.springboot.study.domain.Member;
 import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.common.BaseEntity;
-import umc.springboot.study.domain.enums.MissionStatus;
 
 @Entity
 @Getter
@@ -25,4 +24,5 @@ public class MemberMission extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
 }
