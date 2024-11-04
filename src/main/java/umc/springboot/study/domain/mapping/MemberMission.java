@@ -17,6 +17,9 @@ public class MemberMission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable=false)
+    private boolean isComplete;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

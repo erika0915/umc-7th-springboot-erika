@@ -29,6 +29,8 @@ public class QMemberMission extends EntityPathBase<MemberMission> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final BooleanPath isComplete = createBoolean("isComplete");
+
     public final umc.springboot.study.domain.QMember member;
 
     public final umc.springboot.study.domain.QMission mission;

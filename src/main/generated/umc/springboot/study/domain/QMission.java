@@ -29,6 +29,8 @@ public class QMission extends EntityPathBase<Mission> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final DateTimePath<java.time.LocalDateTime> deadline = createDateTime("deadline", java.time.LocalDateTime.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<umc.springboot.study.domain.mapping.MemberMission, umc.springboot.study.domain.mapping.QMemberMission> memberMissionList = this.<umc.springboot.study.domain.mapping.MemberMission, umc.springboot.study.domain.mapping.QMemberMission>createList("memberMissionList", umc.springboot.study.domain.mapping.MemberMission.class, umc.springboot.study.domain.mapping.QMemberMission.class, PathInits.DIRECT2);

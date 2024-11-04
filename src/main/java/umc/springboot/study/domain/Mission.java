@@ -6,6 +6,7 @@ import umc.springboot.study.domain.common.BaseEntity;
 import umc.springboot.study.domain.enums.MissionStatus;
 import umc.springboot.study.domain.mapping.MemberMission;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class Mission extends BaseEntity {
     private String content;
 
     private Integer reward;
+
+    @Column(nullable = false, columnDefinition = "datetime(6)")
+    private LocalDateTime deadline;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
