@@ -40,6 +40,7 @@ dependencies {
 
 	// mysql connector
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'mysql:mysql-connector-java:8.0.33'
 
 	// spring boot test starter
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -51,6 +52,9 @@ dependencies {
 
 	// querydsl jpa
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
 }
 
 tasks.named('test') {
