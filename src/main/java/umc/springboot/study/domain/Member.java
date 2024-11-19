@@ -2,6 +2,9 @@ package umc.springboot.study.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.springboot.study.domain.common.BaseEntity;
 import umc.springboot.study.domain.enums.Gender;
 import umc.springboot.study.domain.enums.MemberStatus;
@@ -13,6 +16,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -48,6 +53,7 @@ public class Member extends BaseEntity {
     @Column(nullable=false, length=20)
     private String phoneNum;
 
+    @ColumnDefault("0")
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -58,4 +64,12 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberFood> memberFoodList = new ArrayList<>();
+
+    // 기본값 설정
+    @PrePersist
+    public void prePersist(){
+        if(this.status==null){
+            this.status=MemberStatus.ACTIVE;
+        }
+    }
 }
