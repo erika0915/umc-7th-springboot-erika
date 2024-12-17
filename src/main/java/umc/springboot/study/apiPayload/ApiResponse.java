@@ -14,7 +14,7 @@ import umc.springboot.study.apiPayload.code.status.SuccessStatus;
 public class ApiResponse<T> {
 
     @JsonProperty("isSuccess")
-    private final Boolean isSucess;
+    private final Boolean isSuccess;
     private final String code;
     private final String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -22,11 +22,19 @@ public class QMemberFood extends EntityPathBase<MemberFood> {
 
     public static final QMemberFood memberFood = new QMemberFood("memberFood");
 
+    public final umc.springboot.study.domain.common.QBaseEntity _super = new umc.springboot.study.domain.common.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
     public final umc.springboot.study.domain.QFoodCategory foodCategory;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final umc.springboot.study.domain.QMember member;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QMemberFood(String variable) {
         this(MemberFood.class, forVariable(variable), INITS);

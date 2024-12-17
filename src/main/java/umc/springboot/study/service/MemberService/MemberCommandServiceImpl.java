@@ -26,18 +26,20 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     @Override
     @Transactional
-    public Member joinMember(MemberRequestDTO.JoinDTO request){ // 회원가입 요청을 처리하는 joinMember 메서드
+    public Member joinMember(MemberRequestDTO.JoinDTO request){
+        // 회원가입 요청을 처리하는 joinMember 메서드
+
         // Member 엔티티 생성
         Member newMember = MemberConverter.toMember(request);
 
         // 선호 카테고리 id 리스트로 FoodCategory 리스트를 조회
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
-                .map(category->{
-                    return foodCategoryRepository.findById(category).orElseThrow(()-> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
+                .map(categoryId->{
+                    return foodCategoryRepository.findById(categoryId).orElseThrow(()-> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
 
         // FoodCategory 리스트를 MemberFood 리스트로 변환하고 Member 설정
-        List<MemberFood> memberFoodList = MemberPreferConverter.toMemberPreferList(foodCategoryList);
+        List<MemberFood> memberFoodList = MemberPreferConverter.toMemberFoodList(foodCategoryList);
         memberFoodList.forEach(memberFood -> {memberFood.setMember(newMember);});
         return memberRepository.save(newMember);
     }

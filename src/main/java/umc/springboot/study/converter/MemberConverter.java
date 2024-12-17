@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class MemberConverter {
 
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member){
+        // Member 엔티티 객체를 받아 MemberResponseDTO.JoinResultDTO 로 변환
         return MemberResponseDTO.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(member.getCreatedAt())
@@ -17,6 +18,7 @@ public class MemberConverter {
     }
 
     public static Member toMember(MemberRequestDTO.JoinDTO request){
+        // 회원가입 요청으로 받은 MemberRequestDTO.JoinDTO 를 Member 엔티티로 변환
         Gender gender = null;
         switch (request.getGender()){
             case 1:

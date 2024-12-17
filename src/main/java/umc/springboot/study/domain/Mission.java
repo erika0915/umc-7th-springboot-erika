@@ -33,7 +33,7 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private MissionStatus status = MissionStatus.CHALLENGING;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="store_id")
     private Store store;
 

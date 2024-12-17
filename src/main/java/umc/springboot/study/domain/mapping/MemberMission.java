@@ -5,6 +5,7 @@ import lombok.*;
 import umc.springboot.study.domain.Member;
 import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.common.BaseEntity;
+import umc.springboot.study.domain.enums.MissionStatus;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class MemberMission extends BaseEntity {
 
     @Column(nullable=false)
     private boolean isComplete;
+
+    @Enumerated(EnumType.STRING)
+    private MissionStatus status;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

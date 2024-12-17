@@ -5,13 +5,14 @@ import lombok.*;
 import umc.springboot.study.apiPayload.exception.handler.FoodCategoryHandler;
 import umc.springboot.study.domain.FoodCategory;
 import umc.springboot.study.domain.Member;
+import umc.springboot.study.domain.common.BaseEntity;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberFood {
+public class MemberFood extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -28,9 +29,12 @@ public class MemberFood {
     public void setMember(Member member){
         if(this.member != null)
             member.getMemberFoodList().remove(this);
+
+        this.member = member;
+        member.getMemberFoodList().add(this);
     }
 
     public void setFoodCategory(FoodCategory foodCategory){
-        this.foodCategory=foodCategory;
+        this.foodCategory = foodCategory;
     }
 }

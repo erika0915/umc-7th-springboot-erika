@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class MemberPreferConverter {
 
-    public static List<MemberFood> toMemberPreferList(List<FoodCategory> foodCategoryList){
+    public static List<MemberFood> toMemberFoodList(List<FoodCategory> foodCategoryList){
 
         return foodCategoryList.stream()
                 .map(foodCategory ->
