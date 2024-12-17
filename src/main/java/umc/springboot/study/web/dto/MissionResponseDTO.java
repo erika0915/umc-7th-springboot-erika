@@ -20,4 +20,15 @@ public class MissionResponseDTO {
         private Integer reward;
         LocalDateTime createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ChallengeMissionResultDTO{
+        private Long memberId;
+        private Long missionId;
+        private String status;
+        private boolean isComplete;
+    }
 }

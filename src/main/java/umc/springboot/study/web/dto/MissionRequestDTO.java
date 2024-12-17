@@ -3,6 +3,8 @@ package umc.springboot.study.web.dto;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import umc.springboot.study.validation.annotation.ExistStore;
+import umc.springboot.study.validation.annotation.NotAlreadyChallenging;
 
 import java.time.LocalDateTime;
 
@@ -16,9 +18,18 @@ public class MissionRequestDTO {
         @NotNull(message = "보상은 필수 입력 항목입니다.")
         private Integer reward;
         @NotNull(message = "storeId는 필수 입력 항목입니다.")
+        @ExistStore
         private Long storeId;
         @NotNull(message = "마감 기한은 필수 입력 항목입니다.")
         @Future(message = "마감 기한은 미래의 날짜여야 합니다.")
         private LocalDateTime deadline;
+    }
+
+    @Getter
+    public static class ChallengeMissionDTO{
+        @NotNull(message = "회원 ID는 필수 입력 항목입니다.")
+        private Long memberId;
+        @NotAlreadyChallenging
+        private Long missionId;
     }
 }

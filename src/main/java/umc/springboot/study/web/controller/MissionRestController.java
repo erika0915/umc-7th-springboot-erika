@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import umc.springboot.study.apiPayload.ApiResponse;
+import umc.springboot.study.converter.MemberMissionConverter;
 import umc.springboot.study.converter.MissionConverter;
 import umc.springboot.study.domain.Mission;
+import umc.springboot.study.domain.mapping.MemberMission;
+import umc.springboot.study.service.MemberMissionService.MemberMissionCommandService;
 import umc.springboot.study.service.MissionService.MissionCommandService;
 import umc.springboot.study.web.dto.MissionRequestDTO;
 import umc.springboot.study.web.dto.MissionResponseDTO;
@@ -19,6 +22,7 @@ import umc.springboot.study.web.dto.MissionResponseDTO;
 public class MissionRestController {
 
     private final MissionCommandService missionCommandService;
+    private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/add")
     public ApiResponse<MissionResponseDTO.AddMissionResultDTO> addMission(
@@ -26,5 +30,12 @@ public class MissionRestController {
 
         Mission mission = missionCommandService.addMission(request);
         return ApiResponse.onSuccess(MissionConverter.toAddMissionResultDTO(mission));
+    }
+
+    @PostMapping("/challenge")
+    public ApiResponse<MissionResponseDTO.ChallengeMissionResultDTO> challengeMission(
+        @RequestBody @Valid MissionRequestDTO.ChallengeMissionDTO request) {
+        MemberMission memberMission = memberMissionCommandService.challengeMission(request);
+        return ApiResponse.onSuccess(MemberMissionConverter.toChallengeMissionResultDTO(memberMission));
     }
 }
