@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import umc.springboot.study.apiPayload.ApiResponse;
 import umc.springboot.study.domain.Review;
 import umc.springboot.study.converter.StoreConverter;
+import umc.springboot.study.domain.Store;
+import umc.springboot.study.service.StoreService.StoreCommandService;
 import umc.springboot.study.service.StoreService.StoreQueryService;
 import umc.springboot.study.validation.annotation.ExistStore;
+import umc.springboot.study.web.dto.StoreRequestDTO;
 import umc.springboot.study.web.dto.StoreResponseDTO;
 
 @RestController
@@ -23,7 +27,15 @@ import umc.springboot.study.web.dto.StoreResponseDTO;
 @RequestMapping("/stores")
 public class StoreRestController {
 
+    private final StoreCommandService storeCommandService;
     private final StoreQueryService storeQueryService;
+
+    @PostMapping("/add")
+    public ApiResponse<StoreResponseDTO.AddStoreResultDTO> addStore(
+            @RequestBody @Valid StoreRequestDTO.AddStoreDTO request){
+        Store store = storeCommandService.addStore(request);
+        return ApiResponse.onSuccess(StoreConverter.toAddStoreResultDTO(store));
+    }
 
     @GetMapping("/{storeId}/reviews")
     @Operation(summary="특정 가게의 리뷰 목록 조회 API", description="특정 가게의 리뷰들의 목록을 조회하는 API이며, 페이징을 포함한다. query String 으로 page 번호를 주세요.")

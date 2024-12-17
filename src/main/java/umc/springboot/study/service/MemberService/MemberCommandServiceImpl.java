@@ -35,7 +35,8 @@ public class MemberCommandServiceImpl implements MemberCommandService{
         // 선호 카테고리 id 리스트로 FoodCategory 리스트를 조회
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(categoryId->{
-                    return foodCategoryRepository.findById(categoryId).orElseThrow(()-> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
+                    return foodCategoryRepository.findById(categoryId).
+                            orElseThrow(()-> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
 
         // FoodCategory 리스트를 MemberFood 리스트로 변환하고 Member 설정
