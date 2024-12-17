@@ -6,8 +6,9 @@ public class ReviewRequestDTO {
     // 리뷰 추가 요청 DTO
     @Getter
     public static class AddReviewDTO{
-        String nickname;
-        Float score;
-        String content;
+        private Long userId;
+        private Long storeId;
+        private String content;
+        private Float score;
     }
 }
