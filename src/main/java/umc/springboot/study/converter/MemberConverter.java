@@ -1,5 +1,6 @@
 package umc.springboot.study.converter;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import umc.springboot.study.domain.Member;
 import umc.springboot.study.domain.enums.Gender;
 import umc.springboot.study.web.dto.MemberRequestDTO;
@@ -36,6 +37,8 @@ public class MemberConverter {
                 .nickname(request.getNickname())
                 .phoneNum(request.getPhoneNum())
                 .email(request.getEmail())
+                .password(request.getPassword())
+                .role(request.getRole())
                 .memberFoodList(new ArrayList<>())
                 .build();
     }
