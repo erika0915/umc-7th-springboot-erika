@@ -31,6 +31,7 @@ public class StoreRestController {
     private final StoreQueryService storeQueryService;
 
     @PostMapping("/add")
+    @Operation(summary = "특정 지역에 가게를 추가하기 API")
     public ApiResponse<StoreResponseDTO.AddStoreResultDTO> addStore(
             @RequestBody @Valid StoreRequestDTO.AddStoreDTO request){
         Store store = storeCommandService.addStore(request);

@@ -12,7 +12,6 @@ public class MissionRequestDTO {
 
     @Getter
     public static class AddMissionDTO{
-
         @NotNull(message="미션 내용은 필수 입력 항목입니다.")
         private String content;
         @NotNull(message = "보상은 필수 입력 항목입니다.")
@@ -29,7 +28,7 @@ public class MissionRequestDTO {
     public static class ChallengeMissionDTO{
         @NotNull(message = "회원 ID는 필수 입력 항목입니다.")
         private Long memberId;
-        @NotAlreadyChallenging
+        @NotNull(message = "미션 ID는 필수 입력 항목입니다.")
         private Long missionId;
     }
 }

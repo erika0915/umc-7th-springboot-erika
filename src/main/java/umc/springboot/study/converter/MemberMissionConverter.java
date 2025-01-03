@@ -14,8 +14,8 @@ public class MemberMissionConverter {
         return MemberMission.builder()
                 .member(member)
                 .mission(mission)
-                .status(MissionStatus.CHALLENGING)
-                .isComplete(false)
+                .status(MissionStatus.CHALLENGING) // 기본 상태를 CHALLENGING으로 설정
+                .isComplete(false) // 초기값으로 미완료 상태 설정
                 .build();
     }
 
@@ -25,7 +25,7 @@ public class MemberMissionConverter {
                 .memberId(memberMission.getId())
                 .missionId(memberMission.getMission().getId())
                 .status(memberMission.getStatus().name())
-                .isComplete(memberMission.isComplete())
+                .isChallenging(!memberMission.isComplete()) // isComplete의 반대로 설정해야함 !
                 .build();
     }
 }

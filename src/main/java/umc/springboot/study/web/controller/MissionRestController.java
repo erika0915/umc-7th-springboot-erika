@@ -1,5 +1,6 @@
 package umc.springboot.study.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +26,15 @@ public class MissionRestController {
     private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/add")
+    @Operation(summary = "특정 가게에 미션 추가하기 API")
     public ApiResponse<MissionResponseDTO.AddMissionResultDTO> addMission(
             @RequestBody @Valid MissionRequestDTO.AddMissionDTO request){
-
         Mission mission = missionCommandService.addMission(request);
         return ApiResponse.onSuccess(MissionConverter.toAddMissionResultDTO(mission));
     }
 
     @PostMapping("/challenge")
+    @Operation(summary = " 가게의 미션을 도전 중인 미션에 추가하기 API")
     public ApiResponse<MissionResponseDTO.ChallengeMissionResultDTO> challengeMission(
         @RequestBody @Valid MissionRequestDTO.ChallengeMissionDTO request) {
         MemberMission memberMission = memberMissionCommandService.challengeMission(request);

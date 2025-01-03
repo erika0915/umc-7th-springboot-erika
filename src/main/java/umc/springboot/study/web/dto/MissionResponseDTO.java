@@ -29,6 +29,6 @@ public class MissionResponseDTO {
         private Long memberId;
         private Long missionId;
         private String status;
-        private boolean isComplete;
+        private boolean isChallenging;
     }
 }
