@@ -32,6 +32,7 @@ public class StoreConverter {
     }
 
     public static StoreResponseDTO.ReviewPreviewDTO reviewPreviewDTO(Review review){
+        // Review 엔티티를 받아 reviewPreviewDTO 변환
         return StoreResponseDTO.ReviewPreviewDTO.builder()
                 .nickname(review.getMember().getNickname())
                 .score(review.getScore())
@@ -41,9 +42,13 @@ public class StoreConverter {
     }
 
     public static StoreResponseDTO.ReviewPreviewListDTO reveiwPreviewListDTO(Page<Review> reviewList){
+        // Page<Review>를 reviewPreviewListDTO로 변환
+
+        // 리뷰 리스트를 각 각 DTO로 변환
         List<StoreResponseDTO.ReviewPreviewDTO> reviewPreviewDTOList = reviewList.stream()
                 .map(StoreConverter::reviewPreviewDTO).collect(Collectors.toList());
 
+        // 변환된 데이터를 기반으로 ReviewPreviewListDTO 생성
         return StoreResponseDTO.ReviewPreviewListDTO.builder()
                 .isLast(reviewList.isLast())
                 .isFirst(reviewList.isFirst())
