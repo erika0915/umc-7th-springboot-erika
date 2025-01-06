@@ -1,9 +1,13 @@
 package umc.springboot.study.converter;
 
+import org.springframework.data.domain.Page;
 import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.Store;
 import umc.springboot.study.web.dto.MissionRequestDTO;
 import umc.springboot.study.web.dto.MissionResponseDTO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MissionConverter {
 
@@ -25,6 +29,30 @@ public class MissionConverter {
                 .content(mission.getContent())
                 .reward(mission.getReward())
                 .createdAt(mission.getCreatedAt())
+                .build();
+    }
+
+    public static MissionResponseDTO.MissionPreviewDTO missionPreviewDTO(Mission mission){
+        // Mission 엔티티를 받아 missinoPreviewDTO 변환
+        return MissionResponseDTO.MissionPreviewDTO.builder()
+                .storeName(mission.getStore().getName())
+                .content(mission.getContent())
+                .reward(mission.getReward())
+                .build();
+    }
+
+    public static MissionResponseDTO.MissionPreviewListDTO missionPreviewListDTO(Page<Mission> missionList){
+        // Page<Mission>를 missionPreviewListDTO로 변환
+        // 미션 리스트를 각 각 DTO로 변환
+        List<MissionResponseDTO.MissionPreviewDTO> missionPreviewDTOList = missionList.stream()
+                .map(MissionConverter::missionPreviewDTO).collect(Collectors.toList());
+        // 변환된 데이터를 기반으로 MissionPreviewListDTO 생성
+        return MissionResponseDTO.MissionPreviewListDTO.builder()
+                .isFirst(missionList.isFirst())
+                .isLast(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .missionList(missionPreviewDTOList)
                 .build();
     }
 }
