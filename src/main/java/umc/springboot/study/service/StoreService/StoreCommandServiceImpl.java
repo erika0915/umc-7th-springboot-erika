@@ -23,10 +23,8 @@ public class StoreCommandServiceImpl implements StoreCommandService{
     @Transactional
     public Store addStore(StoreRequestDTO.AddStoreDTO request){
         // 가게를 지역에 추가하는 요청을 처리하는 메서드
-
         Region region = regionRepository.findById(request.getRegionId())
                 .orElseThrow(()-> new RegionHandler(ErrorStatus.REGION_NOT_FOUND));
-
         Store newStore = StoreConverter.toStore(request, region);
         return storeRepository.save(newStore);
     }

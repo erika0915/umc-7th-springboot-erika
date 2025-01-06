@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import umc.springboot.study.apiPayload.code.status.ErrorStatus;
+import umc.springboot.study.apiPayload.exception.GeneralException;
 import umc.springboot.study.domain.Member;
 import umc.springboot.study.domain.Review;
 import umc.springboot.study.repository.MemberRepository;
@@ -18,7 +20,8 @@ public class MemberQueryServiceImpl implements MemberQueryService{
 
     @Override
     public Page<Review> getReviewList(Long memberId, Integer page){
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).
+                orElseThrow(()-> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
         return reviewRepository.findAllByMember(member, PageRequest.of(page,10));
     }
 }
