@@ -41,11 +41,15 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath nickname = createString("nickname");
 
+    public final StringPath password = createString("password");
+
     public final StringPath phoneNum = createString("phoneNum");
 
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
+    public final EnumPath<umc.springboot.study.domain.enums.Role> role = createEnum("role", umc.springboot.study.domain.enums.Role.class);
 
     public final StringPath specAddress = createString("specAddress");
 

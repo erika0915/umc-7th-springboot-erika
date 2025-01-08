@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import umc.springboot.study.domain.common.BaseEntity;
 import umc.springboot.study.domain.enums.Gender;
 import umc.springboot.study.domain.enums.MemberStatus;
+import umc.springboot.study.domain.enums.Role;
 import umc.springboot.study.domain.mapping.MemberFood;
 import umc.springboot.study.domain.mapping.MemberMission;
 
@@ -47,7 +48,7 @@ public class Member extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10) DEFAULT 'ACTIVE' ")
     private MemberStatus status;
 
-    @Column(nullable=false, length=50)
+    @Column(nullable=false, unique = true)
     private String email;
 
     @Column(nullable=false, length=20)
@@ -55,6 +56,12 @@ public class Member extends BaseEntity {
 
     @ColumnDefault("0")
     private Integer point;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(nullable=false)
+    private String password;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
@@ -71,5 +78,10 @@ public class Member extends BaseEntity {
         if(this.status==null){
             this.status=MemberStatus.ACTIVE;
         }
+    }
+
+    // 비밀번호 설정 함수
+    public void encodePassword(String password){
+        this.password=password;
     }
 }
