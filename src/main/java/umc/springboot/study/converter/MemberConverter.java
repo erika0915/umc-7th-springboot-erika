@@ -3,10 +3,13 @@ package umc.springboot.study.converter;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import umc.springboot.study.domain.Member;
+import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.Review;
 import umc.springboot.study.domain.enums.Gender;
+import umc.springboot.study.domain.mapping.MemberMission;
 import umc.springboot.study.web.dto.MemberRequestDTO;
 import umc.springboot.study.web.dto.MemberResponseDTO;
+import umc.springboot.study.web.dto.MissionResponseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +74,32 @@ public class MemberConverter {
                 .totalPage(reviewList.getTotalPages())
                 .totalElements(reviewList.getTotalElements())
                 .reviewList(reviewPreviewDTOList)
+                .build();
+    }
+
+    public static MemberResponseDTO.MissionPreviewDTO missionPreviewDTO(MemberMission memberMission){
+        // MemberMission 엔티티를 받아 toMissionPreviewDTO로 변환
+        return MemberResponseDTO.MissionPreviewDTO.builder()
+                .content(memberMission.getMission().getContent())
+                .storeName(memberMission.getMission().getStore().getName())
+                .reward(memberMission.getMission().getReward())
+                .missionStatus(memberMission.getStatus().name())
+                .isComplete(memberMission.isComplete())
+                .build();
+    }
+
+    public static MemberResponseDTO.MissionPreviewListDTO missionPreviewListDTO(Page<MemberMission> memberMissionList){
+        // 미션 리스트를 각 각 DTO로 변환
+        List<MemberResponseDTO.MissionPreviewDTO> missionPreviewDTOList = memberMissionList.stream()
+                .map(MemberConverter::missionPreviewDTO).collect(Collectors.toList());
+
+        // 변환된 데이터를 기반으로 MissionPreviewListDTO 생성
+        return MemberResponseDTO.MissionPreviewListDTO.builder()
+                .isLast(memberMissionList.isLast())
+                .isFirst(memberMissionList.isFirst())
+                .totalPage(memberMissionList.getTotalPages())
+                .totalElements(memberMissionList.getTotalElements())
+                .missionList(missionPreviewDTOList)
                 .build();
     }
 }

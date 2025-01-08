@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import umc.springboot.study.apiPayload.ApiResponse;
 import umc.springboot.study.converter.MemberConverter;
 import umc.springboot.study.domain.Member;
+import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.Review;
 import umc.springboot.study.service.MemberService.MemberCommandService;
 import umc.springboot.study.service.MemberService.MemberQueryService;
@@ -52,5 +53,4 @@ public class MemberRestController {
         Page<Review> reviewList = memberQueryService.getReviewList(memberId, page-1);
         return ApiResponse.onSuccess(MemberConverter.reviewPreviewListDTO(reviewList));
     }
-
 }
