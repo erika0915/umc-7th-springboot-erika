@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import umc.springboot.study.apiPayload.code.status.ErrorStatus;
 import umc.springboot.study.apiPayload.exception.GeneralException;
 import umc.springboot.study.domain.Member;
+import umc.springboot.study.domain.Mission;
 import umc.springboot.study.domain.Review;
 import umc.springboot.study.repository.MemberRepository;
+import umc.springboot.study.repository.MissionRepository;
 import umc.springboot.study.repository.ReviewRepository;
 
 @Service
@@ -17,11 +19,12 @@ public class MemberQueryServiceImpl implements MemberQueryService{
 
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
 
     @Override
-    public Page<Review> getReviewList(Long memberId, Integer page){
+    public Page<Review> getReviewList(Long memberId, Integer page) {
         Member member = memberRepository.findById(memberId).
-                orElseThrow(()-> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
-        return reviewRepository.findAllByMember(member, PageRequest.of(page,10));
+                orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
+        return reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
     }
 }
