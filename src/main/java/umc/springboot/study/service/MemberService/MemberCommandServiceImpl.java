@@ -2,6 +2,7 @@ package umc.springboot.study.service.MemberService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import umc.springboot.study.converter.MemberConverter;
 import umc.springboot.study.converter.MemberPreferConverter;
@@ -23,6 +24,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     private final MemberRepository memberRepository;
     private final FoodCategoryRepository foodCategoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -31,6 +33,9 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         // Member 엔티티 생성
         Member newMember = MemberConverter.toMember(request);
+
+        // 비밀번호 암호화
+        newMember.encodePassword(passwordEncoder.encode(request.getPassword()));
 
         // 선호 카테고리 id 리스트로 FoodCategory 리스트를 조회
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
