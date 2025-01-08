@@ -31,6 +31,7 @@ public class StoreRestController {
     private final StoreQueryService storeQueryService;
 
     @PostMapping("/add")
+    @Operation(summary = "특정 지역에 가게를 추가하기 API")
     public ApiResponse<StoreResponseDTO.AddStoreResultDTO> addStore(
             @RequestBody @Valid StoreRequestDTO.AddStoreDTO request){
         Store store = storeCommandService.addStore(request);
@@ -50,8 +51,10 @@ public class StoreRestController {
         @Parameter(name="storeId", description="가게의 아이디, path vairable 입니다.")
     })
 
-    public ApiResponse<StoreResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name="storeId") Long storeId, @RequestParam(name="page") Integer page){
-        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
+    public ApiResponse<StoreResponseDTO.ReviewPreviewListDTO> getReviewList(
+            @ExistStore @PathVariable(name="storeId") Long storeId,
+            @RequestParam(name="page", defaultValue = "1") Integer page){
+        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page-1);
         return ApiResponse.onSuccess(StoreConverter.reveiwPreviewListDTO(reviewList));
     }
 }

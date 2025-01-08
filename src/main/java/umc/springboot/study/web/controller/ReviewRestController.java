@@ -1,5 +1,6 @@
 package umc.springboot.study.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +22,9 @@ public class ReviewRestController {
     private final ReviewCommandService reviewCommandService;
 
     @PostMapping("/add")
+    @Operation(summary = "특정 가게에 리뷰 추가하기 API")
     public ApiResponse<ReviewResponseDTO.AddReviewResultDTO> addReview(
             @Validated @RequestBody ReviewRequestDTO.AddReviewDTO request){
-
         Review review = reviewCommandService.addReview(request);
         return ApiResponse.onSuccess(ReviewConverter.toAddReviewResultDTO(review));
     }

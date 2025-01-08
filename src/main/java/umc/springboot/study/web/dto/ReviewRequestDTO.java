@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import umc.springboot.study.validation.annotation.ExistStore;
 
 public class ReviewRequestDTO {
     // 리뷰 추가 요청 DTO
@@ -13,6 +14,7 @@ public class ReviewRequestDTO {
         @NotNull(message = "회원 ID는 필수 입력 항목입니다.")
         private Long userId;
         @NotNull(message = "가게 ID는 필수 입력 항목입니다.")
+        @ExistStore
         private Long storeId;
         @NotBlank(message = "리뷰 내용은 필수 입력 항목입니다.")
         private String content;

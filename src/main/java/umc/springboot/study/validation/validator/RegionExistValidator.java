@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import umc.springboot.study.apiPayload.code.status.ErrorStatus;
 import umc.springboot.study.repository.RegionRepository;
 import umc.springboot.study.validation.annotation.ExistRegion;
 
@@ -23,7 +24,7 @@ public class RegionExistValidator implements ConstraintValidator<ExistRegion, Lo
 
         if(!exists){
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("해당하는 지역이 존재하지 않습니다.")
+            context.buildConstraintViolationWithTemplate(ErrorStatus.REGION_NOT_FOUND.getMessage())
                     .addConstraintViolation();
         }
         return exists;
