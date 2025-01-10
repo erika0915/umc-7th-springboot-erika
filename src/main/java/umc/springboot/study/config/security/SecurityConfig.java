@@ -30,6 +30,11 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
+                .oauth2Login(oauth2-> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll()
+                )
                 .csrf(csrf -> csrf.disable()); // CSRF 비활성화
 
         return http.build();
