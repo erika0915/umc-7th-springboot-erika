@@ -23,6 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         System.out.println("로그인 시도: " + member.getEmail()); // 디버깅용 로그
         System.out.println("비밀번호: " + member.getPassword());
+        System.out.println("역할: " + member.getRole().name());
 
         // UserDetails 객체 반환
         return org.springframework.security.core.userdetails.User
